@@ -1,27 +1,122 @@
 <script setup lang="ts">
 import Sortable from './the-sortable.vue'
-import { computed, onUnmounted, reactive, ref, watchEffect } from 'vue'
-import type { SortableOptions } from 'sortablejs'
+import { computed, reactive, ref } from 'vue'
+import type { SortableEvent, SortableOptions } from 'sortablejs'
 import type { AutoScrollOptions } from 'sortablejs/plugins'
 
-import { useInventoryStore } from '@/stores/inventory'
+import GreenSquare from './icons/GreenSquare.vue'
+import OrangeSquare from './icons/OrangeSquare.vue'
+import PurpleSquare from './icons/PurpleSquare.vue'
 
-const store = useInventoryStore()
+const elements = [
+  {
+    id: '1',
+    icon: PurpleSquare
+  },
+  {
+    id: '2',
+    icon: OrangeSquare
+  },
+  {
+    id: '3',
+    icon: GreenSquare
+  },
+  {
+    id: '4',
+    class: 'not-draggable'
+  },
+  {
+    id: '5',
+    class: 'not-draggable'
+  },
+  {
+    id: '6',
+    class: 'not-draggable'
+  },
+  {
+    id: '7',
+    class: 'not-draggable'
+  },
+  {
+    id: '8',
+    class: 'not-draggable'
+  },
+  {
+    id: '9',
+    class: 'not-draggable'
+  },
+  {
+    id: '10',
+    class: 'not-draggable'
+  },
+  {
+    id: '11',
+    class: 'not-draggable'
+  },
+  {
+    id: '12',
+    class: 'not-draggable'
+  },
+  {
+    id: '13',
+    class: 'not-draggable'
+  },
+  {
+    id: '14',
+    class: 'not-draggable'
+  },
+  {
+    id: '15',
+    class: 'not-draggable'
+  },
+  {
+    id: '16',
+    class: 'not-draggable'
+  },
+  {
+    id: '17',
+    class: 'not-draggable'
+  },
+  {
+    id: '18',
+    class: 'not-draggable'
+  },
+  {
+    id: '19',
+    class: 'not-draggable'
+  },
+  {
+    id: '20',
+    class: 'not-draggable'
+  },
+  {
+    id: '21',
+    class: 'not-draggable'
+  },
+  {
+    id: '22',
+    class: 'not-draggable'
+  },
+  {
+    id: '23',
+    class: 'not-draggable'
+  },
+  {
+    id: '24',
+    class: 'not-draggable'
+  },
+  {
+    id: '25',
+    class: 'not-draggable'
+  }
+]
+
+const list = computed({
+  get: () => elements,
+  set: (newValue) => {}
+})
 
 const sortable = ref<InstanceType<typeof Sortable> | null>(null)
-
-const logEvent = (evt: Event, evt2?: Event) => {
-  if (evt2) {
-    console.log(evt, evt2)
-  } else {
-    console.log(evt)
-  }
-}
-
-const logClick = (evt: Event) => {
-  if (sortable.value?.isDragging) return
-  logEvent(evt)
-}
 
 const animating = ref(true)
 const scrollSensitivity = ref(50)
@@ -43,44 +138,29 @@ const options = computed<SortableOptions | AutoScrollOptions>(() => {
   }
 })
 
-const onPress = (evt: Event) => {
-  animating.value = !animating.value
+const onEnd = (evt: SortableEvent) => {
+  const { oldIndex, newIndex } = evt
+  if (oldIndex && newIndex) {
+    const movedElement = elements.splice(oldIndex, 1)[0]
+    elements.splice(newIndex, 0, movedElement)
+    list.value = elements
+  }
 }
-
-onUnmounted(() => {
-  localStorage.setItem('inventory', JSON.stringify(store.list))
-})
 </script>
 
 <template>
   <div>
     <Sortable
-      :list="store.list"
+      :list="list"
       item-key="id"
       :options="options"
-      @change="logEvent"
-      @choose="logEvent"
-      @unchoose="logEvent"
-      @start="logEvent"
-      @end="logEvent"
-      @add="logEvent"
-      @update="logEvent"
-      @sort="logEvent"
-      @remove="logEvent"
-      @filter="logEvent"
-      @move="logEvent"
-      @clone="logEvent"
+      @end="onEnd"
       ref="sortable"
       class="table-container"
     >
       <template #item="{ element, index }">
-        <div
-          class="draggable table-cell"
-          :class="element.class"
-          :key="element.id"
-          @click="logClick"
-        >
-          <component :is="store.list[index].icon" />
+        <div class="draggable table-cell" :class="element.class" :key="element.id">
+          <component :is="elements[index].icon" />
         </div>
       </template>
     </Sortable>

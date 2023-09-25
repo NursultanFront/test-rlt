@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Sortable from './the-sortable.vue'
-import { computed, reactive, ref } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 import type { SortableEvent, SortableOptions } from 'sortablejs'
 import type { AutoScrollOptions } from 'sortablejs/plugins'
 
@@ -8,7 +8,7 @@ import GreenSquare from './icons/GreenSquare.vue'
 import OrangeSquare from './icons/OrangeSquare.vue'
 import PurpleSquare from './icons/PurpleSquare.vue'
 
-const elements = [
+const elements = ref([
   {
     id: '1',
     icon: PurpleSquare
@@ -109,7 +109,7 @@ const elements = [
     id: '25',
     class: 'not-draggable'
   }
-]
+])
 
 const list = computed({
   get: () => elements,
@@ -130,44 +130,55 @@ const options = computed<SortableOptions | AutoScrollOptions>(() => {
     ghostClass: 'ghost',
     dragClass: 'drag',
     scroll: true,
-    invertSwap: false,
     forceFallback: true,
     scrollSensitivity: scrollSensitivity.value,
     scrollSpeed: scrollSpeed.value,
-    bubbleScroll: true
+    bubbleScroll: true,
+    swapThreshold: 1, // Порог обмена
+    invertSwap: true, // Всегда использовать инвертированную зону обмена
+    group: 'my-list' // Группа элементов
   }
 })
 
-const onEnd = (evt: SortableEvent) => {
-  const { oldIndex, newIndex } = evt
-  if (oldIndex && newIndex) {
-    const movedElement = elements.splice(oldIndex, 1)[0]
-    elements.splice(newIndex, 0, movedElement)
-    list.value = elements
+// const onEnd = (evt: SortableEvent) => {
+//   const { oldIndex, newIndex } = evt
+//   const movedElement = elements.splice(oldIndex as number, 1)[0]
+//   elements.splice(newIndex as number, 0, movedElement)
+//   list.value = elements
+// }
+
+onMounted(() => {
+  const savedList = localStorage.getItem('list')
+  if (savedList) {
+    list.value = JSON.parse(savedList)
   }
-}
+})
+
+onUnmounted(() => {
+  localStorage.setItem('list', JSON.stringify(list.value))
+})
 </script>
 
 <template>
   <div>
     <Sortable
-      :list="list"
+      :list="elements"
       item-key="id"
       :options="options"
-      @end="onEnd"
       ref="sortable"
       class="table-container"
     >
-      <template #item="{ element, index }">
+      <template #item="{ element }">
         <div class="draggable table-cell" :class="element.class" :key="element.id">
-          <component :is="elements[index].icon" />
+          <!-- <component :is="elements[index].icon" /> -->
+          {{ element.id }}
         </div>
       </template>
     </Sortable>
   </div>
 </template>
 
-<style>
+<style scoped>
 .table-container {
   display: grid;
   grid-template-columns: repeat(5, 105px);

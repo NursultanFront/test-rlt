@@ -1,13 +1,11 @@
 <template>
   <div>
-    <TheTable />
-    <!-- <TheInventoryVue /> -->
+    <TheInventory />
   </div>
 </template>
 
 <script setup lang="ts">
-import TheInventoryVue from '@/components/TheInventory.vue'
-import TheTable from '@/components/the-table.vue'
+import TheInventory from '@/components/inventory/TheInventory.vue'
 </script>
 
 <style scoped></style>

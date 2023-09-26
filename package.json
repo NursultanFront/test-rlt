@@ -14,9 +14,10 @@
   "dependencies": {
     "pinia": "^2.1.6",
     "sortablejs": "^1.15.0",
+    "sortablejs-vue3": "^1.2.9",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
-    "vuedraggable": "^4.1.0"
+    "vuedraggable": "github:david-mohr/vue.draggable.next#multidrag"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",

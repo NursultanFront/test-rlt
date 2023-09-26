@@ -11,6 +11,8 @@ type Inventory = {
   class: string
 }
 
+type LSName = 'inventory-list' | 'original-list'
+
 export const useInventoryStore = defineStore('inventory', {
   state: () => ({
     list: [
@@ -121,7 +123,44 @@ export const useInventoryStore = defineStore('inventory', {
         id: 25,
         class: 'not-draggable'
       }
+    ] as Inventory[],
+    defaultList: [
+      {
+        id: 1,
+        icon: PurpleSquare,
+        count: 5,
+        class: ''
+      },
+      {
+        id: 2,
+        icon: OrangeSquare,
+        count: 4,
+        class: ''
+      },
+      {
+        id: 3,
+        count: 3,
+        icon: GreenSquare,
+        class: ''
+      }
     ] as Inventory[]
   }),
-  actions: {}
+  actions: {
+    updateInventoryList(lsName: LSName) {
+      const inventoryList = localStorage.getItem(lsName)
+      if (inventoryList) {
+        const list: Inventory[] = JSON.parse(inventoryList)
+
+        this.list = list.map((item) => {
+          const defaultItem = this.defaultList.find((elem) => elem.id === item.id)
+
+          if (defaultItem) {
+            item.icon = defaultItem.icon
+          }
+
+          return item
+        })
+      }
+    }
+  }
 })

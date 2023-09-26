@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 // @ts-ignore
 import draggable from 'vuedraggable'
 import { useInventoryStore } from '@/stores/inventory'
@@ -54,6 +54,16 @@ const openDeleteModal = (id: number) => {
     indexInventory.value = id
   }
 }
+
+onMounted(() => {
+  localStorage.setItem('original-list', JSON.stringify(store.list))
+
+  store.updateInventoryList('inventory-list')
+})
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('inventory-list', JSON.stringify(store.list))
+})
 </script>
 
 <style scoped lang="scss">
@@ -64,6 +74,7 @@ const openDeleteModal = (id: number) => {
 .table {
   position: relative;
   overflow: hidden;
+  height: fit-content;
 }
 
 .table-container {

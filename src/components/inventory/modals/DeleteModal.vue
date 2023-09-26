@@ -1,5 +1,5 @@
 <template>
-  <TheModal id="delete-modal" v-model="isVisible"> </TheModal>
+  <TheModal id="delete-modal" v-model="isVisible"></TheModal>
 </template>
 
 <script setup lang="ts">

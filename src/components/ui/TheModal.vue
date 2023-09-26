@@ -8,20 +8,14 @@
       @keydown.esc="onCloseViaEsc"
     >
       <form v-if="isVisible" class="modal-layout" @submit.prevent="submit">
-        <UiButtonBack class="modal__back-button" />
         <div v-if="hasHeader" class="modal-header">
           <slot name="header" :close="close">
             <h3 class="modal-header__title">
               {{ props.title }}
             </h3>
-            <UiButton
-              variant="secondary"
-              class="modal-header__close-button"
-              :disabled="!props.canClose"
-              @click="close"
-            >
+            <button class="modal-header__close-button" @click="close">
               <CloseIcon width="32" />
-            </UiButton>
+            </button>
           </slot>
         </div>
         <div class="modal-content">
@@ -29,14 +23,14 @@
         </div>
         <div v-if="hasFooter" class="modal-footer">
           <slot name="footer">
-            <UiButton type="submit" :disabled="!canSubmit">{{ submitText }}</UiButton>
+            <!-- <UiButton type="submit" :disabled="!canSubmit">{{ submitText }}</UiButton>
             <UiButton
               type="reset"
               variant="secondary"
               :disabled="!props.canClose"
               @click="onCancel"
               >{{ cancelText }}</UiButton
-            >
+            > -->
           </slot>
         </div>
       </form>

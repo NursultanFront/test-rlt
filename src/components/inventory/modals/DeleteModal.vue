@@ -8,7 +8,7 @@
     <CloseIcon class="delete-modal__close" @click="closeModal" />
     <div class="delete-modal__wrapper">
       <div class="delete-modal__img">
-        <component :is="store.list[indexNumber].icon" />
+        <component :is="computedIcon" />
       </div>
 
       <div class="delete-modal__border"></div>
@@ -56,7 +56,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useInventoryStore } from '@/stores/inventory'
-// import { inventory } from '../data'
 import ModalSkeleton from '@/components/icons/ModalSkeleton.vue'
 import StubSkeleton from '@/components/icons/StubSkeleton.vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
@@ -77,11 +76,19 @@ const additionalBox = ref<boolean>(false)
 
 const count = ref<number>(0)
 
-const maxNumber = computed(() => store.list[indexNumber.value].count as number)
+const maxNumber = computed(
+  () => store.list.find((item) => item.id === indexNumber.value)?.count as number
+)
+
+const computedIcon = computed(() => {
+  const item = store.list.find((item) => item.id === indexNumber.value)
+  return item?.icon || null
+})
 
 const closeModal = () => {
   isVisible.value = false
   additionalBox.value = false
+  indexNumber.value = 0
 }
 
 const showAdditional = () => {
@@ -93,15 +100,17 @@ const closeAdditional = () => {
 }
 
 const deleteItem = () => {
-  ;(store.list[indexNumber.value].count as number) -= count.value
+  const index = store.list.findIndex((item) => item.id === indexNumber.value)
+  ;(store.list[index].count as number) -= count.value
 
-  if (store.list[indexNumber.value].count === 0) {
-    store.list[indexNumber.value].class = 'not-draggable'
-    store.list[indexNumber.value].icon = null
+  if (store.list[index].count === 0) {
+    store.list[index].class = 'not-draggable'
+    store.list[index].icon = null
     closeAdditional()
     closeModal()
     return
   }
+  closeAdditional()
   closeAdditional()
 }
 </script>
@@ -118,7 +127,8 @@ const deleteItem = () => {
   bottom: 0;
   width: 50%;
 
-  border: 1px solid var(--Primary-Border, #4d4d4d);
+  @include border(1px, $primary-main);
+
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   background: rgba(38, 38, 38, 0.5);
@@ -177,7 +187,8 @@ const deleteItem = () => {
     align-self: stretch;
   }
   &__button {
-    padding: 11px;
+    @include padding(11px);
+
     width: 100%;
     @include rounded-border(8px);
 
@@ -211,7 +222,8 @@ const deleteItem = () => {
   right: -1px;
   bottom: -1px;
 
-  border: 1px solid var(--Primary-Border, #4d4d4d);
+  @include border(1px, $primary-main);
+
   background: rgba(38, 38, 38, 0.6);
   backdrop-filter: blur(8px);
 
@@ -230,7 +242,6 @@ const deleteItem = () => {
 
   &__input {
     @include padding(11px);
-    border-radius: 4px;
 
     @include border(1px, $primary-main);
     @include rounded-border(4px);

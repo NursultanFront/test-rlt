@@ -9,8 +9,12 @@
       class="table-container"
       :swap="true"
     >
-      <template #item="{ element, index }">
-        <div class="table-cell" :class="element.class" @click="openDeleteModal(index)">
+      <template #item="{ element }">
+        <div
+          class="table-cell"
+          :class="[element.class, element.id === indexInventory ? 'selected' : '']"
+          @click="openDeleteModal(element.id)"
+        >
           <component :is="element.icon" />
           <div
             v-if="element.icon"
@@ -41,10 +45,10 @@ const isOpenDeleteModal = ref<boolean>(false)
 
 const indexInventory = ref<number>(0)
 
-const openDeleteModal = (index: number) => {
-  if (store.list[index]?.count !== undefined && store.list[index].count !== 0) {
+const openDeleteModal = (id: number) => {
+  if (store.list.find((item) => item.id === id)) {
     isOpenDeleteModal.value = true
-    indexInventory.value = index
+    indexInventory.value = id
   }
 }
 </script>
@@ -64,7 +68,6 @@ const openDeleteModal = (index: number) => {
   grid-template-columns: repeat(5, 105px);
 
   @include rounded-border(12px);
-  border: 1px solid var(--Primary-Border, #4d4d4d);
   @include border(1px, $primary-main);
   width: fit-content;
 }
@@ -95,26 +98,21 @@ const openDeleteModal = (index: number) => {
   right: 0;
   bottom: 0;
 
-  color: $white-main;
-  text-align: center;
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  @include text-style(10px, 500, $white-main);
 
   border-radius: 6px 0px 0px 0px;
   border-left: 1px solid #4d4d4d;
   border-top: 1px solid #4d4d4d;
-  padding: 4px 4px 4px 2px;
+  @include padding(2px, 4px);
 
   opacity: 0.4;
   cursor: pointer;
 }
 
 .sortable-chosen {
-  border-radius: 24px;
-  border: 1px solid var(--Primary-Border, #4d4d4d);
-  background: var(--Seondary-BG, #262626);
+  @include rounded-border(24px);
+  @include border(1px, $primary-main);
+  background: $secondary-main;
 
   .table-number {
     opacity: 0;
@@ -123,5 +121,9 @@ const openDeleteModal = (index: number) => {
 
 .sortable-ghost {
   opacity: 0;
+}
+
+.selected {
+  background-color: $hover-main;
 }
 </style>

@@ -5,7 +5,7 @@ import OrangeSquare from '@/components/icons/OrangeSquare.vue'
 import PurpleSquare from '@/components/icons/PurpleSquare.vue'
 
 type Inventory = {
-  id: string
+  id: number
   icon?: Component | null
   count?: number
   class: string
@@ -15,109 +15,110 @@ export const useInventoryStore = defineStore('inventory', {
   state: () => ({
     list: [
       {
-        id: '1',
+        id: 1,
         icon: PurpleSquare,
         count: 5,
         class: ''
       },
       {
-        id: '2',
+        id: 2,
         icon: OrangeSquare,
         count: 4,
         class: ''
       },
       {
-        id: '3',
+        id: 3,
         count: 3,
         icon: GreenSquare,
         class: ''
       },
+      // Остальные элементы с цифровыми id
       {
-        id: '4',
+        id: 4,
         class: 'not-draggable'
       },
       {
-        id: '5',
+        id: 5,
         class: 'not-draggable'
       },
       {
-        id: '6',
+        id: 6,
         class: 'not-draggable'
       },
       {
-        id: '7',
+        id: 7,
         class: 'not-draggable'
       },
       {
-        id: '8',
+        id: 8,
         class: 'not-draggable'
       },
       {
-        id: '9',
+        id: 9,
         class: 'not-draggable'
       },
       {
-        id: '10',
+        id: 10,
         class: 'not-draggable'
       },
       {
-        id: '11',
+        id: 11,
         class: 'not-draggable'
       },
       {
-        id: '12',
+        id: 12,
         class: 'not-draggable'
       },
       {
-        id: '13',
+        id: 13,
         class: 'not-draggable'
       },
       {
-        id: '14',
+        id: 14,
         class: 'not-draggable'
       },
       {
-        id: '15',
+        id: 15,
         class: 'not-draggable'
       },
       {
-        id: '16',
+        id: 16,
         class: 'not-draggable'
       },
       {
-        id: '17',
+        id: 17,
         class: 'not-draggable'
       },
       {
-        id: '18',
+        id: 18,
         class: 'not-draggable'
       },
       {
-        id: '19',
+        id: 19,
         class: 'not-draggable'
       },
       {
-        id: '20',
+        id: 20,
         class: 'not-draggable'
       },
       {
-        id: '21',
+        id: 21,
         class: 'not-draggable'
       },
       {
-        id: '22',
+        id: 22,
         class: 'not-draggable'
       },
       {
-        id: '23',
+        id: 23,
         class: 'not-draggable'
       },
       {
-        id: '24',
+        id: 24,
         class: 'not-draggable'
       },
       {
-        id: '25',
+        id: 25,
         class: 'not-draggable'
       }
     ] as Inventory[]

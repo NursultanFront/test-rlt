@@ -46,7 +46,10 @@ const isOpenDeleteModal = ref<boolean>(false)
 const indexInventory = ref<number>(0)
 
 const openDeleteModal = (id: number) => {
-  if (store.list.find((item) => item.id === id)) {
+  const isHaveCount = store.list.find((item) => item.id === id)?.count !== undefined
+  const isNotZero = store.list.find((item) => item.id === id)?.count !== 0
+
+  if (isHaveCount && isNotZero) {
     isOpenDeleteModal.value = true
     indexInventory.value = id
   }

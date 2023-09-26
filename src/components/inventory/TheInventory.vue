@@ -45,20 +45,14 @@ const openDeleteModal = (index: number) => {
 </script>
 
 <style scoped lang="scss">
-.table {
-  border-radius: 12px;
-  border: 1px solid var(--Primary-Border, #4d4d4d);
-  background: var(--Seondary-BG, #262626);
-  width: fit-content;
-}
-
 .table-container {
   display: grid;
   grid-template-columns: repeat(5, 105px);
-}
 
-.table-row {
-  display: flex;
+  border-radius: 12px;
+  // border: 1px solid var(--Primary-Border, #4d4d4d);
+  background: var(--Seondary-BG, #262626);
+  width: fit-content;
 }
 
 .table-cell {
@@ -69,9 +63,12 @@ const openDeleteModal = (index: number) => {
 
   width: 105px;
   height: 100px;
+  border: 1px solid var(--Primary-Border, #4d4d4d);
+  border-radius: 12px;
   border-collapse: collapse;
-  border-right: 1px solid #4d4d4d;
-  border-bottom: 1px solid #4d4d4d;
+
+  // border-right: 1px solid #4d4d4d;
+  // border-bottom: 1px solid #4d4d4d;
 
   /* &:nth-child(5n) {
     border-right: none;
@@ -112,11 +109,7 @@ const openDeleteModal = (index: number) => {
   }
 }
 
-.ghost {
-  opacity: 0;
-}
-
-.d-none {
+.sortable-ghost {
   opacity: 0;
 }
 </style>

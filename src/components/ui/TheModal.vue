@@ -120,6 +120,8 @@ defineExpose({
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/mixins';
+
 .modal {
   border: 0;
   background-color: var(--vkd-white-main);

@@ -11,7 +11,7 @@
     >
       <template #item="{ element, index }">
         <div class="table-cell" :class="element.class">
-          <component :is="element.icon" />
+          <component :is="element.icon" @click="openDeleteModal(index)" />
           <div
             :class="{
               [`table-number`]: element.icon
@@ -23,18 +23,24 @@
       </template>
     </draggable>
   </div>
+  <DeleteModal v-model="isOpenDeleteModal" />
 </template>
 
 <script setup lang="ts">
-import { ref, type Component } from 'vue'
+import { ref } from 'vue'
 // @ts-ignore
 import draggable from 'vuedraggable'
 import { inventory } from './data'
 
-const deleteItem = (index: number) => {
-  inventory.value[index].class = 'not-draggable'
-  inventory.value[index].icon = null
-  inventory.value[index].count = null
+import DeleteModal from './modals/DeleteModal.vue'
+
+const isOpenDeleteModal = ref<boolean>(false)
+
+const indexInventory = ref<number>(0)
+
+const openDeleteModal = (index: number) => {
+  isOpenDeleteModal.value = true
+  indexInventory.value = index
 }
 </script>
 

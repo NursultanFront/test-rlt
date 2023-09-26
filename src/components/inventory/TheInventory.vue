@@ -98,6 +98,7 @@ const openDeleteModal = (id: number) => {
   right: 0;
   bottom: 0;
 
+  font-family: 'Inter', sans-serif;
   @include text-style(10px, 500, $white-main);
 
   border-radius: 6px 0px 0px 0px;

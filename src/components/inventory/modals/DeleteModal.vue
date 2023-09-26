@@ -5,7 +5,7 @@
       ['delete-modal--active']: isVisible
     }"
   >
-    <component :is="CloseIcon" class="delete-modal__close" @click="closeModal" />
+    <CloseIcon class="delete-modal__close" @click="closeModal" />
     <div class="delete-modal__wrapper">
       <div class="delete-modal__img">
         <component :is="inventory[indexNumber].icon" />
@@ -14,8 +14,8 @@
       <div class="delete-modal__border"></div>
 
       <div class="delete-modal__skeleton">
-        <component :is="StubSkeleton" />
-        <component :is="ModalSkeleton" />
+        <StubSkeleton />
+        <ModalSkeleton />
       </div>
       <div class="delete-modal__border"></div>
       <div class="delete-modal__footer">

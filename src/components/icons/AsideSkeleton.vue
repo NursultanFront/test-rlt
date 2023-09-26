@@ -148,21 +148,3 @@
     </defs>
   </svg>
 </template>
-
-<style scoped lang="scss">
-@keyframes shine {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-.rect-to-shine {
-  animation: shine 1s infinite;
-}
-</style>

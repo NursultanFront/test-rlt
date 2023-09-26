@@ -1,13 +1,13 @@
 <template>
-  <svg width="211" height="30" viewBox="0 0 211 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect width="211" height="30" rx="8" fill="url(#paint0_linear_0_328)" class="rect-to-shine" />
+  <svg width="699" height="36" viewBox="0 0 699 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="699" height="36" rx="12" fill="url(#paint0_linear_0_358)" class="rect-to-shine" />
     <defs>
       <linearGradient
-        id="paint0_linear_0_328"
+        id="paint0_linear_0_358"
         x1="0"
-        y1="15"
-        x2="211"
-        y2="15"
+        y1="18"
+        x2="699"
+        y2="17.9999"
         gradientUnits="userSpaceOnUse"
       >
         <stop stop-color="#3C3C3C" />

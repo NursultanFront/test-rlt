@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, type Component } from 'vue'
 import GreenSquare from '../icons/GreenSquare.vue'
 import OrangeSquare from '../icons/OrangeSquare.vue'
 import PurpleSquare from '../icons/PurpleSquare.vue'

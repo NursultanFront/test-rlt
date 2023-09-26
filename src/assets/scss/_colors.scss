@@ -1,0 +1,27 @@
+$themes: (
+  dark: (
+    primary: #4d4d4d,
+    white: #fff,
+    black: #1d1d1d,
+    hover: #2f2f2f,
+    red: #fa7272,
+    red-hover: #f88
+  )
+);
+
+@mixin spread-theme-variables($theme: 'dark') {
+  @each $color, $value in map-get($themes, $theme) {
+    --rtl-#{$color}: #{$value};
+  }
+}
+
+:root {
+  @include spread-theme-variables('dark');
+}
+
+$white-main: var(--rtl-white);
+$black-main: var(--rtl-black);
+$border-primary: var(--rtl-primary);
+$hover: var(--rtl-hover);
+$red: var(--rtl-red);
+$red-hover: var(--rtl-red-hover);

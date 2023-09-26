@@ -11,8 +11,12 @@
     >
       <template #item="{ element, index }">
         <div class="table-cell" :class="element.class">
-          <component :is="inventory[index].icon" />
-          <div class="table-number">
+          <component :is="element.icon" />
+          <div
+            :class="{
+              [`table-number`]: element.icon
+            }"
+          >
             {{ element.count }}
           </div>
         </div>
@@ -34,7 +38,7 @@ const deleteItem = (index: number) => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .table {
   border-radius: 12px;
   border: 1px solid var(--Primary-Border, #4d4d4d);
@@ -96,6 +100,10 @@ const deleteItem = (index: number) => {
   border-radius: 24px;
   border: 1px solid var(--Primary-Border, #4d4d4d);
   background: var(--Seondary-BG, #262626);
+
+  .table-number {
+    opacity: 0;
+  }
 }
 
 .ghost {

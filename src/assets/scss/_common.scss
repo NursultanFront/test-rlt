@@ -12,7 +12,6 @@ body {
 
 html,
 body,
-#__nuxt,
 .layout {
   height: 100vh;
 }
@@ -146,4 +145,11 @@ p {
 
 .w-100 {
   width: 100%;
+}
+
+#app {
+  max-width: 800px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
 }

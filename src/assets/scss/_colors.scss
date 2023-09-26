@@ -1,6 +1,7 @@
 $themes: (
   dark: (
     primary-main: #4d4d4d,
+    secondary-main: #262626,
     white-main: #fff,
     black-main: #1d1d1d,
     hover-main: #2f2f2f,
@@ -11,6 +12,7 @@ $themes: (
   light:
     (
       primary-main: #4d4d4d,
+      secondary-main: #262626,
       white-main: #fff,
       black-main: #1d1d1d,
       hover-main: #2f2f2f,
@@ -28,10 +30,10 @@ $themes: (
 :root {
   @include spread-theme-variables('dark');
 }
-
+$secondary-main: var(--rlt-secondary-main);
 $white-main: var(--rlt-white-main);
 $black-main: var(--rlt-black-main);
-$border-primary: var(--rlt-primary-main);
+$primary-main: var(--rlt-primary-main);
 $hover: var(--rlt-hover-main);
 $red: var(--rlt-red-main);
 $red-hover: var(--rlt-red-hover-main);

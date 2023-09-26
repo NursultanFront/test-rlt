@@ -31,8 +31,6 @@
 import { ref } from 'vue'
 // @ts-ignore
 import draggable from 'vuedraggable'
-// import { inventory } from './data'
-
 import { useInventoryStore } from '@/stores/inventory'
 
 const store = useInventoryStore()
@@ -85,6 +83,10 @@ const openDeleteModal = (index: number) => {
 
   &:nth-child(5n) {
     border-right: none;
+  }
+
+  &:nth-child(n + 21) {
+    border-bottom: none;
   }
 }
 

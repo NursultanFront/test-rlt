@@ -8,7 +8,7 @@
     <CloseIcon class="delete-modal__close" @click="closeModal" />
     <div class="delete-modal__wrapper">
       <div class="delete-modal__img">
-        <component :is="inventory[indexNumber].icon" />
+        <component :is="store.list[indexNumber].icon" />
       </div>
 
       <div class="delete-modal__border"></div>
@@ -55,10 +55,13 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { inventory } from '../data'
+import { useInventoryStore } from '@/stores/inventory'
+// import { inventory } from '../data'
 import ModalSkeleton from '@/components/icons/ModalSkeleton.vue'
 import StubSkeleton from '@/components/icons/StubSkeleton.vue'
 import CloseIcon from '@/components/icons/CloseIcon.vue'
+
+const store = useInventoryStore()
 
 const isVisible = defineModel({
   default: false,
@@ -74,7 +77,7 @@ const additionalBox = ref<boolean>(false)
 
 const count = ref<number>(0)
 
-const maxNumber = computed(() => inventory.value[indexNumber.value].count as number)
+const maxNumber = computed(() => store.list[indexNumber.value].count as number)
 
 const closeModal = () => {
   isVisible.value = false
@@ -90,11 +93,14 @@ const closeAdditional = () => {
 }
 
 const deleteItem = () => {
-  ;(inventory.value[indexNumber.value].count as number) -= count.value
+  ;(store.list[indexNumber.value].count as number) -= count.value
 
-  if (inventory.value[indexNumber.value].count === 0) {
-    inventory.value[indexNumber.value].class = 'not-draggable'
-    inventory.value[indexNumber.value].icon = null
+  if (store.list[indexNumber.value].count === 0) {
+    store.list[indexNumber.value].class = 'not-draggable'
+    store.list[indexNumber.value].icon = null
+    closeAdditional()
+    closeModal()
+    return
   }
   closeAdditional()
 }

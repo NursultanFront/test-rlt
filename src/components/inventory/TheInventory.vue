@@ -1,7 +1,7 @@
 <template>
   <div class="table">
     <draggable
-      v-model="inventory"
+      v-model="store.list"
       group="people-md"
       selected-class="selected"
       item-key="name"
@@ -31,7 +31,11 @@
 import { ref } from 'vue'
 // @ts-ignore
 import draggable from 'vuedraggable'
-import { inventory } from './data'
+// import { inventory } from './data'
+
+import { useInventoryStore } from '@/stores/inventory'
+
+const store = useInventoryStore()
 
 import DeleteModal from './modals/DeleteModal.vue'
 
@@ -40,7 +44,7 @@ const isOpenDeleteModal = ref<boolean>(false)
 const indexInventory = ref<number>(0)
 
 const openDeleteModal = (index: number) => {
-  if (inventory.value[index]?.count !== undefined && inventory.value[index].count !== 0) {
+  if (store.list[index]?.count !== undefined && store.list[index].count !== 0) {
     isOpenDeleteModal.value = true
     indexInventory.value = index
   }

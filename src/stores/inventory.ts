@@ -1,23 +1,36 @@
 import { defineStore } from 'pinia'
-
+import type { Component } from 'vue'
 import GreenSquare from '@/components/icons/GreenSquare.vue'
 import OrangeSquare from '@/components/icons/OrangeSquare.vue'
 import PurpleSquare from '@/components/icons/PurpleSquare.vue'
+
+type Inventory = {
+  id: string
+  icon?: Component | null
+  count?: number
+  class: string
+}
 
 export const useInventoryStore = defineStore('inventory', {
   state: () => ({
     list: [
       {
         id: '1',
-        icon: PurpleSquare
+        icon: PurpleSquare,
+        count: 5,
+        class: ''
       },
       {
         id: '2',
-        icon: OrangeSquare
+        icon: OrangeSquare,
+        count: 4,
+        class: ''
       },
       {
         id: '3',
-        icon: GreenSquare
+        count: 3,
+        icon: GreenSquare,
+        class: ''
       },
       {
         id: '4',
@@ -107,7 +120,7 @@ export const useInventoryStore = defineStore('inventory', {
         id: '25',
         class: 'not-draggable'
       }
-    ]
+    ] as Inventory[]
   }),
   actions: {}
 })

@@ -8,17 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import MainImg from '@/assets/img/nicebg.png'
 import AsideSkeletonIcon from '../icons/AsideSkeleton.vue'
-
-const ANIMATION_OFF_TIME = 5
-
-const isShowContent = ref<boolean>(false)
-
-setTimeout(() => {
-  isShowContent.value = true
-}, ANIMATION_OFF_TIME)
 </script>
 
 <style scoped lang="scss">

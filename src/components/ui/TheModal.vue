@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport to=".table">
     <dialog
       :id="modalId"
       ref="modalElementRef"

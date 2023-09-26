@@ -1,21 +1,13 @@
 <template>
   <div class="table">
     <!-- Создаем 5 строк -->
-    <div class="row" v-for="row in 5" :key="row">
+    <div v-for="row in 5" :key="row">
       <!-- Создаем 5 ячеек в каждой строке -->
       <div class="cell" v-for="cell in 5" :key="cell">{{ (row - 1) * 5 + cell }}</div>
     </div>
   </div>
 
-  <draggable
-    v-model="inventory"
-    group="people-md"
-    selected-class="selected"
-    item-key="name"
-    filter=".not-draggable"
-    class="table-container"
-    :swap="true"
-  >
+  <draggable v-model="inventoryList" item-key="name" class="table">
     <template #item="{ element, index }">
       <draggable
         :list="element.items"
@@ -23,11 +15,11 @@
         selected-class="selected"
         item-key="id"
         filter=".not-draggable"
-        class="table-container"
+        class="row"
         :swap="true"
       >
         <template #item="{ item, idx }">
-          <div>{{ item }}</div>
+          <div class="cell">{{ index }}</div>
         </template>
       </draggable>
     </template>
@@ -38,7 +30,7 @@
 import { ref } from 'vue'
 // @ts-ignore
 import draggable from 'vuedraggable'
-const inventory = ref([
+const inventoryList = ref([
   {
     index: 1,
     items: [

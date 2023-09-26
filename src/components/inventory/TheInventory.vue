@@ -10,9 +10,10 @@
       :swap="true"
     >
       <template #item="{ element, index }">
-        <div class="table-cell" :class="element.class">
-          <component :is="element.icon" @click="openDeleteModal(index)" />
+        <div class="table-cell" :class="element.class" @click="openDeleteModal(index)">
+          <component :is="element.icon" />
           <div
+            v-if="element.icon"
             :class="{
               [`table-number`]: element.icon
             }"
@@ -22,8 +23,8 @@
         </div>
       </template>
     </draggable>
+    <DeleteModal v-model="isOpenDeleteModal" v-model:index="indexInventory" />
   </div>
-  <DeleteModal v-model="isOpenDeleteModal" />
 </template>
 
 <script setup lang="ts">
@@ -39,19 +40,30 @@ const isOpenDeleteModal = ref<boolean>(false)
 const indexInventory = ref<number>(0)
 
 const openDeleteModal = (index: number) => {
-  isOpenDeleteModal.value = true
-  indexInventory.value = index
+  if (inventory.value[index]?.count !== undefined && inventory.value[index].count !== 0) {
+    isOpenDeleteModal.value = true
+    indexInventory.value = index
+  }
 }
 </script>
 
 <style scoped lang="scss">
+@import '../../assets/scss/colors';
+@import '../../assets/scss/mixins';
+@import '../../assets/scss/functions';
+
+.table {
+  position: relative;
+  overflow: hidden;
+}
+
 .table-container {
   display: grid;
   grid-template-columns: repeat(5, 105px);
 
-  border-radius: 12px;
-  // border: 1px solid var(--Primary-Border, #4d4d4d);
-  background: var(--Seondary-BG, #262626);
+  @include rounded-border(12px);
+  border: 1px solid var(--Primary-Border, #4d4d4d);
+  @include border(1px, $primary-main);
   width: fit-content;
 }
 
@@ -63,18 +75,13 @@ const openDeleteModal = (index: number) => {
 
   width: 105px;
   height: 100px;
-  border: 1px solid var(--Primary-Border, #4d4d4d);
-  border-radius: 12px;
-  border-collapse: collapse;
 
-  // border-right: 1px solid #4d4d4d;
-  // border-bottom: 1px solid #4d4d4d;
+  border-right: 1px solid $primary-main;
+  border-bottom: 1px solid $primary-main;
 
-  /* &:nth-child(5n) {
+  &:nth-child(5n) {
     border-right: none;
-  } */
-
-  /* border-left: 1px solid var(--Primary-Border, #4D4D4D); */
+  }
 }
 
 .table-number {
@@ -82,9 +89,8 @@ const openDeleteModal = (index: number) => {
   right: 0;
   bottom: 0;
 
-  color: var(--Primary-White, #fff);
+  color: $white-main;
   text-align: center;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 500;

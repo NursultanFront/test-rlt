@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body,
 input,
@@ -148,7 +152,7 @@ p {
 }
 
 #app {
-  max-width: 800px;
+  max-width: 900px;
   width: 100%;
   padding: 15px;
   margin: 0 auto;

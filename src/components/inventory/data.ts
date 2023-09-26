@@ -6,7 +6,7 @@ import PurpleSquare from '../icons/PurpleSquare.vue'
 type Inventory = {
   id: string
   icon?: Component | null
-  count?: number | null
+  count?: number
   class: string
 }
 
@@ -14,18 +14,18 @@ export const inventory = ref<Inventory[]>([
   {
     id: '1',
     icon: PurpleSquare,
-    count: 0,
+    count: 5,
     class: ''
   },
   {
     id: '2',
     icon: OrangeSquare,
-    count: 0,
+    count: 4,
     class: ''
   },
   {
     id: '3',
-    count: 0,
+    count: 3,
     icon: GreenSquare,
     class: ''
   },
